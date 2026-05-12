@@ -844,6 +844,35 @@ footer a:hover { color: var(--accent); }
     animation: fadeUp 0.8s ease forwards;
 }
 
+
+/* === REAL PHOTOS === */
+.real-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-tile img,
+.catalog-image img,
+.about-image img {
+    transition: transform 0.6s ease;
+}
+
+.hero-tile:hover img,
+.catalog-card:hover img,
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+.logo-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 960px) {
     .wrap { padding: 0 20px; }
@@ -906,7 +935,7 @@ footer a:hover { color: var(--accent); }
 <nav>
     <div class="wrap nav-inner">
         <a href="#" class="logo">
-            <span class="logo-mark">Q</span>
+            <img src="photo/logo.jpg" alt="Qonaqqa" class="logo-img">
             <span>Qonaqqa Desserts</span>
         </a>
         <ul class="nav-links">
@@ -954,19 +983,13 @@ footer a:hover { color: var(--accent); }
 
             <div class="hero-visual">
                 <div class="hero-tile hero-tile-1">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 1<br>(чизкейк)</span>
-                    </div>
+                    <img src="photo/photo_1_2026-05-12_20-57-33.jpg" class="real-photo" alt="Чизкейк Qonaqqa">
                 </div>
                 <div class="hero-tile hero-tile-2">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 2<br>(пирожное)</span>
-                    </div>
+                    <img src="photo/photo_2_2026-05-12_20-57-33.jpg" class="real-photo" alt="Пирожное Qonaqqa">
                 </div>
                 <div class="hero-tile hero-tile-3">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 3<br>(бенто)</span>
-                    </div>
+                    <img src="photo/photo_3_2026-05-12_20-57-33.jpg" class="real-photo" alt="Бенто-торт Qonaqqa">
                 </div>
                 <div class="hero-dot"></div>
             </div>
@@ -1018,9 +1041,7 @@ footer a:hover { color: var(--accent); }
         <div class="catalog-grid">
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 4<br>(чизкейки)</span>
-                    </div>
+                    <img src="photo/photo_4_2026-05-12_20-57-33.jpg" class="real-photo" alt="Чизкейки Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Топ продаж</span>
@@ -1031,9 +1052,7 @@ footer a:hover { color: var(--accent); }
 
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 5<br>(торты)</span>
-                    </div>
+                    <img src="photo/photo_5_2026-05-12_20-57-33.jpg" class="real-photo" alt="Авторские торты Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Под заказ</span>
@@ -1044,9 +1063,7 @@ footer a:hover { color: var(--accent); }
 
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 6<br>(пирожные)</span>
-                    </div>
+                    <img src="photo/photo_6_2026-05-12_20-57-33.jpg" class="real-photo" alt="Пирожные Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Для витрин</span>
@@ -1057,9 +1074,7 @@ footer a:hover { color: var(--accent); }
 
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 7<br>(бенто)</span>
-                    </div>
+                    <img src="photo/photo_7_2026-05-12_20-57-33.jpg" class="real-photo" alt="Бенто-торты Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Хит для цветочных</span>
@@ -1070,9 +1085,7 @@ footer a:hover { color: var(--accent); }
 
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 8<br>(ПП-десерты)</span>
-                    </div>
+                    <img src="photo/photo_8_2026-05-12_20-57-33.jpg" class="real-photo" alt="ПП десерты Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Без сахара</span>
@@ -1083,9 +1096,7 @@ footer a:hover { color: var(--accent); }
 
             <div class="catalog-card">
                 <div class="catalog-image">
-                    <div class="photo-placeholder">
-                        <span class="placeholder-label">Фото 9<br>(сезонное)</span>
-                    </div>
+                    <img src="photo/photo_9_2026-05-12_20-57-33.jpg" class="real-photo" alt="Сезонные десерты Qonaqqa">
                 </div>
                 <div class="catalog-body">
                     <span class="catalog-tag">Сезон</span>
@@ -1271,9 +1282,7 @@ footer a:hover { color: var(--accent); }
     <div class="wrap">
         <div class="about-grid">
             <div class="about-image">
-                <div class="photo-placeholder">
-                    <span class="placeholder-label">Фото 10<br>(производство /<br>кондитер за работой)</span>
-                </div>
+                <img src="photo/photo_10_2026-05-12_20-57-33.jpg" class="real-photo" alt="Производство Qonaqqa">
             </div>
             <div class="about-text">
                 <h2>О производстве <em>Qonaqqa</em></h2>
@@ -1369,7 +1378,7 @@ footer a:hover { color: var(--accent); }
         <div class="footer-grid">
             <div>
                 <a href="#" class="logo">
-                    <span class="logo-mark">Q</span>
+                    <img src="photo/logo.jpg" alt="Qonaqqa" class="logo-img">
                     <span>Qonaqqa Desserts</span>
                 </a>
                 <p class="footer-tagline">Авторские десерты ручной работы. Уральск.</p>
