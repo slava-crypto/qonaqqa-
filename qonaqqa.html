@@ -623,6 +623,24 @@ section { padding: 100px 0; position: relative; }
 
 .form-success.active { display: block; }
 
+.form-error {
+    display: none;
+    background: #C0392B;
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.form-error.active { display: block; }
+
+.form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* === PROCESS === */
 .process { background: var(--bg-deep); }
 
@@ -1136,6 +1154,9 @@ footer a:hover { color: var(--accent); }
                 <div class="form-success" data-form="horeca">
                     Спасибо! Мы свяжемся с вами в ближайшее время.
                 </div>
+                <div class="form-error" data-form="horeca">
+                    Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.
+                </div>
                 <h3>Получить прайс для HoReCa</h3>
                 <p class="form-subtitle">Отправим действующий прайс и обсудим формат сотрудничества.</p>
 
@@ -1178,6 +1199,9 @@ footer a:hover { color: var(--accent); }
                 <div class="form-success" data-form="bento">
                     Спасибо! Мы свяжемся с вами в ближайшее время.
                 </div>
+                <div class="form-error" data-form="bento">
+                    Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.
+                </div>
                 <h3>Запросить условия для цветочного</h3>
                 <p class="form-subtitle">Покажем ассортимент бенто и обсудим формат поставок.</p>
 
@@ -1219,6 +1243,9 @@ footer a:hover { color: var(--accent); }
             <div class="form-card">
                 <div class="form-success" data-form="franchise">
                     Спасибо! Мы свяжемся с вами в ближайшее время.
+                </div>
+                <div class="form-error" data-form="franchise">
+                    Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.
                 </div>
                 <h3>Узнать условия франшизы</h3>
                 <p class="form-subtitle">Расскажем об условиях, инвестициях и сроках окупаемости.</p>
@@ -1434,35 +1461,62 @@ document.querySelectorAll('input[type="tel"]').forEach(input => {
     });
 });
 
-// Обработка отправки форм
+const N8N_WEBHOOK_URL = 'https://your-n8n-domain.example.com/webhook/qonaqqa-lead';
+
 document.querySelectorAll('.lead-form').forEach(form => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const source = form.dataset.source;
+        const card = form.parentElement;
+        const successEl = card.querySelector('.form-success');
+        const errorEl = card.querySelector('.form-error');
+        const submitBtn = form.querySelector('.form-submit');
+        const originalBtnText = submitBtn.textContent;
+
+        successEl.classList.remove('active');
+        errorEl.classList.remove('active');
+
         const data = {
-            source: source, // horeca / bento / franchise
-            name: form.querySelector('[name="name"]').value,
-            phone: form.querySelector('[name="phone"]').value,
-            order: form.querySelector('[name="order"]').value,
+            source: source,
+            name: form.querySelector('[name="name"]').value.trim(),
+            phone: form.querySelector('[name="phone"]').value.trim(),
+            order: form.querySelector('[name="order"]').value.trim(),
+            page_url: window.location.href,
+            user_agent: navigator.userAgent,
             timestamp: new Date().toISOString()
         };
 
-        // TODO: подключи отправку заявки.
-        // Варианты:
-        // 1) Telegram-бот: fetch(`https://api.telegram.org/bot<TOKEN>/sendMessage`, {...})
-        // 2) Webhook в n8n: fetch('https://your-n8n.cloud/webhook/qonaqqa', {method:'POST', body: JSON.stringify(data)})
-        // 3) Простая отправка на email через сервис типа FormSubmit или Web3Forms
-        console.log('Заявка:', data);
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправляем...';
 
-        // Имитация успешной отправки
-        const success = form.parentElement.querySelector('.form-success');
-        success.classList.add('active');
-        form.reset();
+        try {
+            const response = await fetch(N8N_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-        setTimeout(() => {
-            success.classList.remove('active');
-        }, 5000);
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.status);
+            }
+
+            successEl.classList.add('active');
+            form.reset();
+
+            setTimeout(() => {
+                successEl.classList.remove('active');
+            }, 6000);
+        } catch (err) {
+            console.error('Lead submit failed:', err);
+            errorEl.classList.add('active');
+            setTimeout(() => {
+                errorEl.classList.remove('active');
+            }, 6000);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        }
     });
 });
 
